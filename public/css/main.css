@@ -1,0 +1,51 @@
+.text-desc {
+  color: rgb(52, 52, 52);
+}
+
+.card {
+  transition: .4s;
+  height: 300px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card:hover{
+  transform: translateY(-12px);
+}
+
+textarea {
+  resize: none !important;
+  height: 100px;
+}
+
+.form-signin {
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dropdown-item:active {
+  background-color: #212529 !important;
+}
+
+.heading-hero {
+  font-size: 60px !important;
+}
+
+.icon-large {
+  font-size: 60px !important;
+}
