@@ -26,7 +26,7 @@ class WorkspaceController extends Controller
 
     public function show(Workspace $space)
     {
-        return view('spaces.space', ['space' => $space->load('projects')]);
+        return view('spaces.space', ['space' => $space->load('user', 'projects')]);
     }
 
     public function store(Request $request)

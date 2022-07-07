@@ -2,15 +2,15 @@
   color: rgb(52, 52, 52);
 }
 
-.card {
+.card.card-custom {
   transition: .4s;
   height: 300px;
   overflow: hidden;
   cursor: pointer;
 }
 
-.card:hover{
-  transform: translateY(-12px);
+.card.card-custom:hover{
+  transform: translateY(-10px);
 }
 
 textarea {
