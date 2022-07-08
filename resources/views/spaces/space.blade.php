@@ -6,7 +6,7 @@
             <h1 class="text-center fw-bold">{{ $space->title }}</h1>
             <div class="row mt-5 mb-5 align-items-center justify-content-between">
                 <div class="col-lg-6">
-                    <a href="{{ url()->previous() }}">
+                    <a href="{{ route('spaces') }}">
                         <i class="fas fa-arrow-left fs-5 bg-dark text-light p-3 rounded-circle"></i>
                     </a>
                 </div>
@@ -17,12 +17,15 @@
                         </a>
                     @else
                         <button type="button" id="show-profile" class="btn btn-danger">
-                            <i class="fas fa-user-astronaut"></i> &nbsp;Show profile
+                            <i class="fas fa-user-astronaut"></i> &nbsp;Show owner profile
                         </button>
                     @endif
                 </div>
             </div>
-            @if (auth()->user()->username != $space->user->username)
+            @php
+                $authState = auth()->user()->username != $space->user->username;
+            @endphp
+            @if ($authState)
                 <div id="profile-card" class="row d-none justify-content-center gap-5 align-items-center">
                     <div class="col-lg-5">
                         <img class="w-100" src="{{ asset('images/project.svg') }}" alt="">
@@ -47,8 +50,11 @@
             <h2 class="my-5">
                 Projects ({{ $space->projects->count() }})
             </h2>
-            <div class="row">
-                @foreach ($space->projects as $p)
+            <div
+                class="row
+                @if ($space->projects->count() <= 0) justify-content-center align-items-center gap-4 @endif
+            ">
+                @forelse ($space->projects as $p)
                     <div class="col-lg-4">
                         <div class="card card-custom shadow-sm mb-4" style="max-height: 230px; cursor: default;">
                             <div class="card-header">
@@ -82,7 +88,29 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-lg-4">
+                        <img class="w-100" src="{{ asset('images/empty.svg') }}" alt="">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="fw-bold">
+                            @if ($authState)
+                                OMG, This is empty workspace!
+                            @else
+                                Hey {{ auth()->user()->username }}, your workspace is empty!!
+                            @endif
+                        </h2>
+                        <p class="mt-3 text-dark">
+                            @if ($authState)
+                                This workspace doesn't contain any projects, the owner doesn't add any projects at all.
+                            @else
+                                Don't let your workspace go unnoticed, let's try to add a new project by
+                                pressing the red <a href="">add
+                                    new project</a> button above 👆
+                            @endif
+                        </p>
+                    </div>
+                @endforelse
             </div>
         </section>
     @else
@@ -97,11 +125,11 @@
 
         btnShowProfile.addEventListener('click', function() {
             const content = this.textContent.trim()
-            if (content == "Show profile") {
-                this.innerHTML = '<i class="fas fa-user-ninja"></i> &nbsp;Hide profile'
+            if (content == "Show owner profile") {
+                this.innerHTML = '<i class="fas fa-user-ninja"></i> &nbsp;Hide owner profile'
                 profile.classList.remove('d-none')
             } else {
-                this.innerHTML = '<i class="fas fa-user-astronaut"></i> &nbsp;Show profile'
+                this.innerHTML = '<i class="fas fa-user-astronaut"></i> &nbsp;Show owner profile'
                 profile.classList.add('d-none')
             }
         })

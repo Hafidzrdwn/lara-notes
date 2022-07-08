@@ -12,7 +12,7 @@
                     Manage Projects, Capture Notes And Brainstorm New Ideas. All In One App. </p>
                 <a href="{{ route('spaces') }}" class="btn btn-dark me-2"><i class="fas fa-rocket"></i>&nbsp;Get
                     Started</a>
-                <a href="" class="btn btn-outline-secondary">Feature</a>
+                <a href="" class="btn btn-outline-secondary"><i class="fas fa-meteor"></i>&nbsp;Feature</a>
                 <p class="mt-3 small">Made with &#10084; by <a class="text-danger"
                         href="https://www.instagram.com/hafidzrdwn/" target="_blank">@hafidzrdwn</a></p>
             </div>

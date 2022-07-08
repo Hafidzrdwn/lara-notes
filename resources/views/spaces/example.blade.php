@@ -5,7 +5,7 @@
         <h1 class="text-center fw-bold">{{ $space->title }}</h1>
         <div class="row mt-5 mb-5 align-items-center justify-content-between">
             <div class="col-lg-6">
-                <a href="{{ url()->previous() }}">
+                <a href="{{ route('spaces') }}">
                     <i class="fas fa-arrow-left fs-5 bg-dark text-light p-3 rounded-circle"></i>
                 </a>
             </div>
