@@ -4,6 +4,7 @@
     @auth
         <section class="my-5">
             <h1 class="text-center fw-bold">{{ $space->title }}</h1>
+            <p class="text-center">{{ $space->desc }}</p>
             <div class="row mt-5 mb-5 align-items-center justify-content-between">
                 <div class="col-lg-6">
                     <a href="{{ route('spaces') }}">
@@ -56,7 +57,7 @@
             ">
                 @forelse ($space->projects as $p)
                     <div class="col-lg-4">
-                        <div class="card card-custom shadow-sm mb-4" style="max-height: 230px; cursor: default;">
+                        <div class="card card-custom shadow-sm mb-4" style="max-height: 230px;">
                             <div class="card-header">
                                 <i class="fas fa-calendar-alt"></i> &nbsp;{{ $p->created_at->diffForHumans() }}
                             </div>

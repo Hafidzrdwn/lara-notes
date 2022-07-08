@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\WorkspaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home');
-Route::get('/spaces', [WorkspaceController::class, 'index'])->name('spaces');
-Route::get('/spaces/example/{space:slug}', [WorkspaceController::class, 'show'])->name('space.example');
+Route::get('/spaces', 'WorkspaceController@index')->name('spaces');
+Route::get('/spaces/example/{space:slug}', 'WorkspaceController@show')->name('space.example');
 
 Route::middleware(['guest'])->group(function () {
   Route::get('/auth/register', [AuthController::class, 'register'])->name('register');
@@ -27,10 +26,13 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['check'])->group(function () {
-  Route::get('/spaces/new', [WorkspaceController::class, 'create'])->name('spaces.create');
-  Route::post('/spaces/new', [WorkspaceController::class, 'store'])->name('spaces.store');
-  Route::get('/spaces/{space:slug}', [WorkspaceController::class, 'show'])->name('space');
-  Route::get('/space/slug', [WorkspaceController::class, 'makeSlug'])->name('space.slug');
+  Route::get('/spaces/new', 'WorkspaceController@create')->name('space.create');
+  Route::post('/spaces/new', 'WorkspaceController@store')->name('space.store');
+  Route::get('/spaces/{space:slug}/edit', 'WorkspaceController@edit')->name('space.edit');
+  Route::put('/spaces/{space:slug}', 'WorkspaceController@update')->name('space.update');
+  Route::delete('/spaces/{space:slug}', 'WorkspaceController@destroy')->name('space.destroy');
+  Route::get('/spaces/{space:slug}', 'WorkspaceController@show')->name('space');
+  Route::get('/space/slug', 'WorkspaceController@makeSlug')->name('space.slug');
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

@@ -3,6 +3,7 @@
 @section('content')
     <section class="my-5">
         <h1 class="text-center fw-bold">{{ $space->title }}</h1>
+        <p class="text-center">{{ $space->desc }}</p>
         <div class="row mt-5 mb-5 align-items-center justify-content-between">
             <div class="col-lg-6">
                 <a href="{{ route('spaces') }}">
