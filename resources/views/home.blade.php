@@ -1,4 +1,4 @@
-@extends('layouts.main', ['title' => 'Home'])
+@extends('layouts.main', ['title' => 'Best Notes Web App'])
 
 @section('content')
     <section class="mt-5 pt-5">

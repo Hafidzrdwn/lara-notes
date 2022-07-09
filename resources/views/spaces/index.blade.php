@@ -26,7 +26,7 @@
                         @if ($isOwner)
                             <div class="card-header bg-white border-0">
                                 <div class="dropdown text-end">
-                                    <i class="fas fa-ellipsis-v" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                    <i class="fas fa-ellipsis-h fs-5" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                         aria-expanded="false" style="cursor: pointer;"></i>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
