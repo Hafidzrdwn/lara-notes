@@ -21,9 +21,15 @@
                                 alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href=""><i class="fas fa-user me-1"></i> My Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="fas fa-th-large"></i>
-                                    Dashboard</a>
+                            <li>
+                                <a class="dropdown-item" href="">
+                                    <i class="fas fa-user me-1"></i> My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                    <i class="fas fa-th-large me-1"></i> Dashboard
+                                </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
