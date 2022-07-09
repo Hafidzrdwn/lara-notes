@@ -37,7 +37,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            <a href="{{ url()->previous() }}" class="text-dark">Back</a>
+                            <a href="{{ route('spaces') }}" class="text-dark">Back</a>
                         </div>
                         <div class="col-lg-6 text-end">
                             <button type="submit" class="btn btn-danger">Edit workspace</button>
