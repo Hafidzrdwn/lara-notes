@@ -37,7 +37,11 @@
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                    <button type="submit" class="dropdown-item text-danger"
+                                        onclick="return confirm('Are you sure to logout??')">
+                                        <i class="fas fa-sign-out-alt me-1"></i>
+                                        Logout
+                                    </button>
                                 </form>
                             </li>
                         </ul>
