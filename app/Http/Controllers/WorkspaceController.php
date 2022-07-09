@@ -21,6 +21,9 @@ class WorkspaceController extends Controller
 
     public function show(Workspace $space)
     {
+        if (!Auth::check() && !$space->is_example) {
+            return redirect()->route('spaces');
+        }
         return view('spaces.space', ['space' => $space->load('user', 'projects')]);
     }
 
@@ -47,6 +50,9 @@ class WorkspaceController extends Controller
 
     public function edit(Workspace $space)
     {
+        if (Auth::user()->username != $space->user->username) {
+            return redirect()->route('spaces');
+        }
         return view('spaces.edit', ['space' => $space]);
     }
 
