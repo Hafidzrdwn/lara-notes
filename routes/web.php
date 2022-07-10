@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WorkspaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,20 +20,29 @@ Route::get('/spaces', 'WorkspaceController@index')->name('spaces');
 Route::get('/spaces/example/{space:slug}', 'WorkspaceController@show')->name('space.example');
 
 Route::middleware(['guest'])->group(function () {
-  Route::get('/auth/register', [AuthController::class, 'register'])->name('register');
-  Route::post('/auth/register', [AuthController::class, 'registration'])->name('register.store');
-  Route::get('/auth', [AuthController::class, 'index'])->name('login');
-  Route::post('/auth', [AuthController::class, 'login'])->name('login.store');
+  Route::controller(AuthController::class)->group(function () {
+    Route::prefix('auth')->group(function () {
+      Route::get('/register', 'register')->name('register');
+      Route::post('/register', 'registration')->name('register.store');
+      Route::get('/', 'index')->name('login');
+      Route::post('/', 'login')->name('login.store');
+    });
+  });
 });
 
 Route::middleware(['check'])->group(function () {
-  Route::get('/spaces/new', 'WorkspaceController@create')->name('space.create');
-  Route::post('/spaces/new', 'WorkspaceController@store')->name('space.store');
-  Route::get('/spaces/{space:slug}/edit', 'WorkspaceController@edit')->name('space.edit');
-  Route::put('/spaces/{space:slug}', 'WorkspaceController@update')->name('space.update');
-  Route::delete('/spaces/{space:slug}', 'WorkspaceController@destroy')->name('space.destroy');
-  Route::get('/spaces/{space:slug}', 'WorkspaceController@show')->name('space');
-  Route::get('/space/slug', 'WorkspaceController@makeSlug')->name('space.slug');
+  Route::controller(WorkspaceController::class)->group(function () {
+    Route::prefix('spaces')->group(function () {
+      Route::get('/new', 'create')->name('space.create');
+      Route::post('/new', 'store')->name('space.store');
+      Route::get('/{space:slug}/edit', 'edit')->name('space.edit');
+      Route::put('/{space:slug}', 'update')->name('space.update');
+      Route::delete('/{space:slug}', 'destroy')->name('space.destroy');
+      Route::get('/{space:slug}', 'show')->name('space');
+      Route::get('/slug', 'makeSlug')->name('space.slug');
+    });
+  });
+
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

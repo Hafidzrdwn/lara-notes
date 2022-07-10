@@ -26,7 +26,7 @@
             function ajaxGetSlug(title) {
                 if (title) {
                     $.ajax({
-                        url: '/space/slug',
+                        url: '/spaces/slug',
                         type: "GET",
                         data: `title=${title}`,
                         success: function(res) {
