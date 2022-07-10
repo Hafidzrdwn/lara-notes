@@ -31,8 +31,8 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['check'])->group(function () {
-  Route::controller(WorkspaceController::class)->group(function () {
-    Route::prefix('spaces')->group(function () {
+  Route::prefix('spaces')->group(function () {
+    Route::controller(WorkspaceController::class)->group(function () {
       Route::get('/new', 'create')->name('space.create');
       Route::post('/new', 'store')->name('space.store');
       Route::get('/{space:slug}/edit', 'edit')->name('space.edit');
@@ -41,7 +41,11 @@ Route::middleware(['check'])->group(function () {
       Route::get('/{space:slug}', 'show')->name('space');
       Route::get('/slug', 'makeSlug')->name('space.slug');
     });
+
+    Route::get('{space:slug}/projects/new', 'ProjectController@create')->name('project.create');
+    Route::post('{space:slug}/projects/new', 'ProjectController@store')->name('project.store');
   });
+
 
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

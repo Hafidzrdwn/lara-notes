@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Project;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -22,9 +25,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Workspace $space)
     {
-        //
+        $categories = Category::all();
+
+        return view('projects.create',  compact('space', 'categories'));
     }
 
     /**
@@ -33,9 +38,20 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Workspace $space)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:50',
+            'category' => 'required'
+        ]);
+
+        $validatedData['workspace_id'] = $space->id;
+        $validatedData['category_id'] = $validatedData['category'];
+        $validatedData['slug'] = "prj" . Str::random(20);
+        $validatedData['security'] = ($request->has('security')) ? 1 : 0;
+
+        Project::create($validatedData);
+        return redirect()->route('space', $space->slug)->with('success', '<strong>Congratulations!!</strong> new project is successfully created!!');
     }
 
     /**

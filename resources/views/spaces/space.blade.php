@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-lg-6 text-end">
                     @if (auth()->user()->username == $space->user->username)
-                        <a href="" class="btn btn-danger">
+                        <a href="{{ route('project.create', $space->slug) }}" class="btn btn-danger">
                             <i class="fas fa-folder-plus"></i> &nbsp;Add new project
                         </a>
                     @else
@@ -51,6 +51,21 @@
             <h2 class="my-5">
                 Projects ({{ $space->projects->count() }})
             </h2>
+            @if ($msg = Session::get('success'))
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <x-alert>
+                            @slot('type')
+                                success
+                            @endslot
+
+                            @slot('msg')
+                                {!! $msg !!}
+                            @endslot
+                        </x-alert>
+                    </div>
+                </div>
+            @endif
             <div
                 class="row
                 @if ($space->projects->count() <= 0) justify-content-center align-items-center gap-4 @endif
