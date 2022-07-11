@@ -44,6 +44,7 @@ Route::middleware(['check'])->group(function () {
 
     Route::get('{space:slug}/projects/new', 'ProjectController@create')->name('project.create');
     Route::post('{space:slug}/projects/new', 'ProjectController@store')->name('project.store');
+    Route::delete('{space:slug}/projects/{project:slug}', 'ProjectController@destroy')->name('project.destroy');
   });
 
 

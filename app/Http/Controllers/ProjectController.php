@@ -94,8 +94,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Workspace $space, Project $project)
     {
-        //
+        Project::destroy($project->id);
+        return redirect()->route('space', $space->slug)->with('success', '<strong>Wow!</strong> your project has been deleted!!');
     }
 }

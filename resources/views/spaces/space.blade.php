@@ -55,10 +55,9 @@
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <x-alert>
-                            @slot('type')
-                                success
+                            @slot('class')
+                                alert-success
                             @endslot
-
                             @slot('msg')
                                 {!! $msg !!}
                             @endslot
@@ -72,9 +71,42 @@
             ">
                 @forelse ($space->projects as $p)
                     <div class="col-lg-4">
-                        <div class="card card-custom shadow-sm mb-4" style="max-height: 230px;">
-                            <div class="card-header">
-                                <i class="fas fa-calendar-alt"></i> &nbsp;{{ $p->created_at->diffForHumans() }}
+                        <div class="card card-custom shadow-sm mb-4" style="max-height: 265px;">
+                            <div class="card-header row justify-content-between align-items-center">
+                                <div class="col-lg-6">
+                                    <i class="fas fa-calendar-alt"></i> &nbsp;{{ $p->created_at->diffForHumans() }}
+                                </div>
+                                @if (Auth::check() && $space->user->username === auth()->user()->username)
+                                    <div class="col-lg-6">
+                                        <div class="dropdown text-end">
+                                            <i class="fas fa-ellipsis-h fs-5" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                aria-expanded="false" style="cursor: pointer;"></i>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li>
+                                                    <a class="dropdown-item" href=""><i
+                                                            class="fas fa-pencil-alt me-1"></i>
+                                                        Edit</a>
+                                                </li>
+                                                <li>
+                                                    <form
+                                                        action="{{ route('project.destroy', [
+                                                            'space' => $space->slug,
+                                                            'project' => $p->slug,
+                                                        ]) }}"
+                                                        method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item text-danger"
+                                                            onclick="return confirm('Are you sure??')">
+                                                            <i class="fas fa-trash-alt me-1"></i>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="card-body position-relative">
                                 <h4>{{ $p->title }}</h4>
