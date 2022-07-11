@@ -8,6 +8,8 @@ use Illuminate\Validation\Rules\Password as RulesPassword;
 use App\Rules\FullnameRule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -23,7 +25,7 @@ class AuthController extends Controller
 
     public function registration(Request $request)
     {
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(), [
             'name' => ['required', 'min:6', 'max:30', 'string', new FullnameRule()],
             'username' => 'required|min:4|max:20|unique:users|alpha_dash',
             'email' => 'required|email:dns|unique:users',
@@ -31,33 +33,63 @@ class AuthController extends Controller
             'password_confirm' => 'required|same:password'
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        if ($validated->fails()) {
+            return response()->json([
+                'error' => $validated->errors(),
+                'type' => 'list'
+            ]);
+        }
 
-        User::create($validated);
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ];
 
-        return redirect()->route('login')->with('success', '<strong>Registration successful!</strong> Please login!');
+        User::create($data);
+
+        Session::flash('success', '<strong>Registration successful!</strong> Please login!');
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('login')
+        ]);
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $credentials = Validator::make($request->all(), [
             'email' => 'required|email:dns',
             'password' => 'required',
         ]);
 
-        $remember = ($request->has('remember')) ? true : false;
-
-        if (Auth::attempt($credentials, $remember)) {
-            $request->session()->regenerate();
-
-            $user = User::where(["email" => $credentials['email']])->first();
-            Auth::login($user, $remember);
-            Auth::logoutOtherDevices($credentials['password']);
-
-            return redirect()->intended('spaces');
+        if ($credentials->fails()) {
+            return response()->json([
+                'error' => $credentials->errors(),
+                'type' => 'list'
+            ]);
         }
 
-        return back()->with('error', '<strong>Login failed!!</strong>, Please try again!');
+        $remember = ($request->has('remember')) ? true : false;
+
+        if (Auth::attempt($request->only(['email', 'password']), $remember)) {
+            $request->session()->regenerate();
+
+            $user = User::where(["email" => $request->email])->first();
+            Auth::login($user, $remember);
+            Auth::logoutOtherDevices($request->password);
+
+            return response()->json([
+                'success' => true,
+                'redirect' => route('spaces')
+            ]);
+        }
+
+        return response()->json([
+            'error' => '<strong>Login failed!!</strong>, Please try again!',
+            'type' => 'single'
+        ]);
     }
 
     public function logout()

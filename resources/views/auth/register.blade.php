@@ -5,20 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-8">
                 <h1 class="text-center h3 mb-4 fw-bold">Registration</h1>
-                @if ($errors->any())
-                    <x-alert>
-                        @slot('type')
-                            danger
-                        @endslot
-                        @slot('msg')
-                            <ul>
-                                @foreach ($errors->all() as $err)
-                                    <li>{{ $err }}</li>
-                                @endforeach
-                            </ul>
-                        @endslot
-                    </x-alert>
-                @endif
+                <div id="alert-zone"></div>
                 <form class="row g-3" method="POST" action="{{ route('register.store') }}">
                     @csrf
                     <div class="col-md-6">
@@ -48,7 +35,11 @@
                             placeholder="Confirm your password..">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-danger w-100">Register</button>
+                        <button type="submit" class="btn btn-danger w-100 btn-submit-auth">Register</button>
+                        <button class="w-100 btn btn-danger btn-loading d-none" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
                     </div>
                 </form>
                 <p class="small mt-3 text-center">Already registered? <a href="{{ route('login') }}">Login Now!</a>
@@ -56,4 +47,8 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/auth.js') }}"></script>
 @endsection

@@ -8,48 +8,24 @@
                     <h1 class="h3 mb-4 fw-bold">Login</h1>
                     @if ($msg = Session::get('success'))
                         <x-alert>
-                            @slot('type')
-                                success
+                            @slot('class')
+                                alert-success
                             @endslot
                             @slot('msg')
                                 {!! $msg !!}
                             @endslot
                         </x-alert>
                     @endif
-                    @if ($msg = Session::get('error'))
-                        <x-alert>
-                            @slot('type')
-                                danger
-                            @endslot
-                            @slot('msg')
-                                {!! $msg !!}
-                            @endslot
-                        </x-alert>
-                    @endif
-                    @if ($errors->any())
-                        <x-alert>
-                            @slot('type')
-                                danger
-                            @endslot
-                            @slot('msg')
-                                <ul>
-                                    @foreach ($errors->all() as $err)
-                                        <li>{{ $err }}</li>
-                                    @endforeach
-                                </ul>
-                            @endslot
-                        </x-alert>
-                    @endif
+                    <div id="alert-zone"></div>
                     <form method="POST" action="{{ route('login.store') }}">
                         @csrf
                         <div class="form-floating">
-                            <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
-                                id="email" placeholder="name@example.com" value="{{ old('email') }}" autofocus>
+                            <input type="text" name="email" class="form-control" id="email"
+                                placeholder="name@example.com" value="{{ old('email') }}" autofocus>
                             <label for="email">Email address</label>
                         </div>
                         <div class="form-floating">
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" id="password"
+                            <input type="password" name="password" class="form-control" id="password"
                                 placeholder="Password" autocomplete="new-password">
                             <label for="password">Password</label>
                         </div>
@@ -58,11 +34,19 @@
                                 autocomplete="off">
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
-                        <button class="w-100 mb-3 btn btn-danger" type="submit">Login</button>
+                        <button class="w-100 mb-3 btn btn-danger btn-submit-auth" type="submit">Login</button>
+                        <button class="w-100 btn btn-danger btn-loading d-none" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
                         <small>Not registered yet? <a href="{{ route('register') }}">Register Now!</a></small>
                     </form>
                 </main>
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/auth.js') }}"></script>
 @endsection
