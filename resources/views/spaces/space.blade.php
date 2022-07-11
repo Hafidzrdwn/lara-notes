@@ -83,9 +83,12 @@
                                                 aria-expanded="false" style="cursor: pointer;"></i>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li>
-                                                    <a class="dropdown-item" href=""><i
-                                                            class="fas fa-pencil-alt me-1"></i>
-                                                        Edit</a>
+                                                    <button type="button" class="dropdown-item btnEdit" data-bs-toggle="modal"
+                                                        data-bs-target="#modalEdit" data-ws="{{ $space->slug }}"
+                                                        data-prj-id="{{ $p->id }}">
+                                                        <i class="fas fa-pencil-alt me-1"></i>
+                                                        Edit
+                                                    </button>
                                                 </li>
                                                 <li>
                                                     <form
@@ -164,22 +167,123 @@
     @else
         @include('spaces.example')
     @endauth
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditLabel">Edit Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        @csrf
+                        @method('put')
+                        <div class="mb-3">
+                            <label for="projectTitle" class="form-label">Title</label>
+                            <input type="text" name="title" placeholder="Enter project title.."
+                                class="form-control @error('title') is-invalid @enderror" id="projectTitle"
+                                value="{{ old('title') }}">
+                            @error('title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-select @error('category') is-invalid @enderror" id="category"
+                                name="category" aria-label="Default select example">
+                                <option selected disabled>Select your project category</option>
+                                @foreach ($categories as $category)
+                                    <option @if (old('category') == $category->id) selected @endif
+                                        value="{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Privacy (optional)</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" name="security"
+                                    id="security" @if (old('security') == 'on') checked @endif>
+                                <label class="form-check-label" for="security">
+                                    Private project
+                                </label>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
+    @if (count($errors) > 0)
+        <script>
+            $(document).ready(function() {
+                $('#modalEdit').modal('show');
+            });
+        </script>
+    @endif
     <script>
-        const btnShowProfile = document.getElementById('show-profile')
-        const profile = document.getElementById('profile-card')
+        $(document).ready(function() {
+            const btnShowProfile = $('#show-profile')
+            const profile = $('#profile-card')
 
-        btnShowProfile.addEventListener('click', function() {
-            const content = this.textContent.trim()
-            if (content == "Show owner profile") {
-                this.innerHTML = '<i class="fas fa-user-ninja"></i> &nbsp;Hide owner profile'
-                profile.classList.remove('d-none')
-            } else {
-                this.innerHTML = '<i class="fas fa-user-astronaut"></i> &nbsp;Show owner profile'
-                profile.classList.add('d-none')
-            }
+            $(btnShowProfile).on('click', function() {
+                const content = $(this).text().trim()
+                if (content == "Show owner profile") {
+                    $(this).html('<i class="fas fa-user-ninja"></i> &nbsp;Hide owner profile')
+                    $(profile).removeClass('d-none')
+                } else {
+                    $(this).html('<i class="fas fa-user-astronaut"></i> &nbsp;Show owner profile')
+                    $(profile).addClass('d-none')
+                }
+            })
+
+            $('.btnEdit').on('click', function() {
+
+                const ws = $(this).data('ws')
+
+                $.ajax({
+                    url: `/spaces/${ws}/projects?id=${$(this).data('prj-id')}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data)
+                        $('#modalEdit').find('input[name="title"]').val(data.title)
+                        $('#modalEdit').find('select[name="category"] > option').each(
+                            function() {
+                                if ($(this).val() == data.category_id) {
+                                    $(this).prop('selected', true)
+                                }
+                            })
+                        $('#modalEdit').find('input[name="security"]').prop('checked', data
+                            .security)
+                        $('#modalEdit').find('form').attr('action',
+                            `/spaces/${ws}/projects/${data.slug}`
+                        )
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
+                })
+            })
+
         })
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,10 @@ class WorkspaceController extends Controller
             return redirect()->route('spaces');
         }
 
-        return view('spaces.space', ['space' => $space->load('user', 'projects')]);
+        return view('spaces.space', [
+            'space' => $space->load('user', 'projects'),
+            'categories' => Category::all()
+        ]);
     }
 
     public function create()

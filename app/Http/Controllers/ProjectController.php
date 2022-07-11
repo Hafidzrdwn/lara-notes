@@ -71,9 +71,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit()
     {
-        //
+        return response()->json(Project::find(request()->id));
     }
 
     /**
@@ -83,9 +83,20 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Workspace $space, Project $project)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:50',
+            'category' => 'required'
+        ]);
+
+        $validatedData['workspace_id'] = $space->id;
+        $validatedData['category_id'] = $validatedData['category'];
+        $validatedData['slug'] = "prj" . Str::random(20);
+        $validatedData['security'] = ($request->has('security')) ? 1 : 0;
+
+        Project::find($project->id)->update($validatedData);
+        return redirect()->route('space', $space->slug)->with('success', '<strong>Congratulations!!</strong> your project is successfully updated!!');
     }
 
     /**
