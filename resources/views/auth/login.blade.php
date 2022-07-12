@@ -16,6 +16,16 @@
                             @endslot
                         </x-alert>
                     @endif
+                    @if ($msg = Session::get('error'))
+                        <x-alert>
+                            @slot('class')
+                                alert-danger
+                            @endslot
+                            @slot('msg')
+                                {!! $msg !!}
+                            @endslot
+                        </x-alert>
+                    @endif
                     <div id="alert-zone"></div>
                     <form method="POST" action="{{ route('login.store') }}">
                         @csrf
