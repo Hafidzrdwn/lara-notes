@@ -56,7 +56,7 @@ class WorkspaceController extends Controller
     public function edit(Workspace $space)
     {
         if (!Auth::check() || Auth::user()->id != $space->user_id) {
-            return redirect()->route('spaces');
+            abort(403);
         }
 
         return view('spaces.edit', ['space' => $space]);
