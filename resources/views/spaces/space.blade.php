@@ -120,7 +120,10 @@
                                 @php
                                     $state = auth()->user()->username != $space->user->username && $p->security;
                                 @endphp
-                                <a href="#"
+                                <a href="{{ route('project', [
+                                    'space' => $space->slug,
+                                    'project' => $p->slug,
+                                ]) }}"
                                     class="
                                 position-absolute 
                                 d-block 

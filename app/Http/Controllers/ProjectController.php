@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Note;
 use App\Models\Project;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -60,9 +61,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Workspace $space, Project $project)
     {
-        //
+        return view('projects.show', compact('space', 'project'));
     }
 
     /**

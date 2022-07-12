@@ -44,9 +44,14 @@ Route::middleware(['check'])->group(function () {
 
     Route::get('{space:slug}/projects/new', 'ProjectController@create')->name('project.create');
     Route::post('{space:slug}/projects/new', 'ProjectController@store')->name('project.store');
-    Route::delete('{space:slug}/projects/{project:slug}', 'ProjectController@destroy')->name('project.destroy');
-    Route::put('{space:slug}/projects/{project:slug}', 'ProjectController@update')->name('project.update');
+    Route::get('{space:slug}/projects/{project:slug}', 'ProjectController@show')->name('project');
     Route::get('/{space:slug}/projects', 'ProjectController@edit')->name('project.edit');
+    Route::put('{space:slug}/projects/{project:slug}', 'ProjectController@update')->name('project.update');
+    Route::delete('{space:slug}/projects/{project:slug}', 'ProjectController@destroy')->name('project.destroy');
+
+    Route::delete('{space:slug}/projects/{project:slug}/notes/{note}', 'NoteController@destroy')->name('note.destroy');
+    Route::post('{space:slug}/projects/{project:slug}/notes/new', 'NoteController@store')->name('note.store');
+    Route::put('{space:slug}/projects/{project:slug}/notes/{note}', 'NoteController@update')->name('note.update');
   });
 
 
