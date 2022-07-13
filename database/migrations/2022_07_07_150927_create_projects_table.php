@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('workspace_id')->onDelete('cascade');
+            $table->foreignId('workspace_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id');
             $table->string('title');
             $table->string('slug')->unique();
