@@ -21,11 +21,6 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="slug" class="form-label">Slug</label>
-                        <input type="text" name="slug" placeholder="Workspace slug will show here.."
-                            class="form-control" id="slug" value="{{ old('slug', $space->slug) }}" readonly>
-                    </div>
-                    <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" name="description"
                             placeholder="Enter workspace description here.." id="description">{{ old('description', $space->desc) }}</textarea>

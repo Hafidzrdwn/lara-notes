@@ -45,7 +45,7 @@ class WorkspaceController extends Controller
         ]);
 
         $validated['desc'] = $validated['description'];
-        $validated['slug'] = SlugService::createSlug(Workspace::class, 'slug', $request->title);;
+        $validated['slug'] = SlugService::createSlug(Workspace::class, 'slug', $request->title);
         $validated['user_id'] = Auth::user()->id;
 
         Workspace::create($validated);
@@ -70,7 +70,7 @@ class WorkspaceController extends Controller
         ]);
 
         $validated['desc'] = $validated['description'];
-        $validated['slug'] = $request->slug;
+        $validated['slug'] = SlugService::createSlug(Workspace::class, 'slug', $request->title);
         $validated['user_id'] = Auth::user()->id;
 
         Workspace::find($space->id)->update($validated);
