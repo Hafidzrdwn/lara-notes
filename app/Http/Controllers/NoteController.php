@@ -23,6 +23,15 @@ class NoteController extends Controller
         ]);
     }
 
+    public function update(Request $request, Workspace $space, Project $project, Note $note)
+    {
+        Note::find($note->id)->update($request->all());
+        return response()->json([
+            'success' => true,
+            'msg' => 'Note updated'
+        ]);
+    }
+
     public function destroy(Workspace $space, Project $project, Note $note)
     {
         Note::destroy($note->id);
