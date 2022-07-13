@@ -39,7 +39,6 @@ Route::middleware(['check'])->group(function () {
       Route::put('/{space:slug}', 'update')->name('space.update');
       Route::delete('/{space:slug}', 'destroy')->name('space.destroy');
       Route::get('/{space:slug}', 'show')->name('space');
-      Route::get('/slug', 'makeSlug')->name('space.slug');
     });
 
     Route::get('{space:slug}/projects/new', 'ProjectController@create')->name('project.create');

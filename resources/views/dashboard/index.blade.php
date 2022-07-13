@@ -3,8 +3,8 @@
 @section('content')
     @if ($msg = Session::get('success'))
         <x-alert>
-            @slot('type')
-                success
+            @slot('class')
+                alert-success
             @endslot
 
             @slot('msg')

@@ -45,7 +45,7 @@ class WorkspaceController extends Controller
         ]);
 
         $validated['desc'] = $validated['description'];
-        $validated['slug'] = $request->slug;
+        $validated['slug'] = SlugService::createSlug(Workspace::class, 'slug', $request->title);;
         $validated['user_id'] = Auth::user()->id;
 
         Workspace::create($validated);
@@ -81,12 +81,5 @@ class WorkspaceController extends Controller
     {
         Workspace::destroy($space->id);
         return redirect()->route('dashboard')->with('success', '<strong>Workspace has been deleted!!</strong>');
-    }
-
-    public function makeSlug(Request $request)
-    {
-        $slug = SlugService::createSlug(Workspace::class, 'slug', $request->title);
-
-        return response()->json(['slug' => $slug]);
     }
 }
