@@ -20,6 +20,7 @@
                     <h3 class="text-center">Empty</h3>
                 @endif
             </div>
+            @if(auth()->user()->username == $space->user->username)
             <div class="col-lg-4 bg-white border border-dark rounded p-3">
                 <img src="{{ asset('images/notes.svg') }}" class="w-75 d-block mb-3 mx-auto" alt="project image">
                 <div class="btn-groups w-100">
@@ -43,11 +44,12 @@
                     @endif
                 </div>
             </div>
+            @endif
         </div>
     </section>
 @endsection
 
-
+@if(auth()->user()->username == $space->user->username)
 @section('script')
     <script>
         $(document).ready(function() {
@@ -153,3 +155,4 @@
         });
     </script>
 @endsection
+@endif
