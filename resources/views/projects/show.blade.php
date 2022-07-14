@@ -62,8 +62,7 @@
                 } 
                 const noteTextLength = noteText.length
 
-                $('.note-zone').html('')
-                $('.btn-groups').html('')
+                $('.note-zone, .btn-groups').html('')
                 $('.note-zone').removeClass('p-4')
                 $('.note-zone').addClass('p-0')
                 $('.note-zone').append(
@@ -73,7 +72,7 @@
                 $('.note-zone').find('textarea').focus()
 
                 $('.btn-groups').append(
-                    `<input class="form-control w-100 mb-2 border" min="16" max="40" @if($project->note) value="{{ $project->note->font_size }}" @endif placeholder="Font size (min:16 max:40)" type="number" name="font_size" id="font-size" onchange="changeFontSize(this.value)"><button class="btn btn-danger d-block w-100 mb-2 btn-save disabled" type="button" onclick="save('${status}')">Save changes</button><div class="btn-group w-100"><button class="btn btn-dark" onclick="resetInput()">Reset input</button><button class="btn btn-secondary" onclick="cancelState()" type="button">Cancel</button></div>`
+                    `<input class="form-control w-100 mb-2 border" min="16" max="40" @if($project->note) value="{{ $project->note->font_size }}" @endif placeholder="Font size (min:16 max:40)" type="number" name="font_size" id="font-size" onchange="changeFontSize(this.value)"><button class="btn btn-danger d-block w-100 mb-2 btn-save disabled" type="button" onclick="save('${status}')">Save changes</button><div class="btn-group w-100"><button class="btn btn-dark btn-reset" onclick="resetInput()">Reset input</button><button class="btn btn-secondary btn-cancel" onclick="cancelState()" type="button">Cancel</button></div>`
                 )
 
                 textAreaChange(noteText)
@@ -98,8 +97,7 @@
             }
 
             window.cancelState = function() {
-                $('.note-zone').html('')
-                $('.btn-groups').html('')
+                $('.note-zone, .btn-groups').html('')
                 $('.note-zone').removeClass('p-0')
                 $('.note-zone').addClass('p-4')
                 $('.btn-groups').append(
@@ -118,9 +116,12 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    beforeSend: function() {
+                        $('.btn-save,.btn-reset,.btn-cancel').addClass('disabled')
+                        $('.btn-groups').find('.btn-save').html('<i class="fas fa-spinner fa-spin"></i> Saving...')
+                    },
                     success: function(data) {
-                        location.reload()
-                        cancelState()
+                        if(location.reload()) cancelState()
                     },
                     error: function(err) {
                         console.log(err)
