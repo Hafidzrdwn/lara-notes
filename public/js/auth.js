@@ -37,16 +37,16 @@ $(document).ready(function () {
                     type: 'POST',
                     data: formData,
                     beforeSend: function() {
-                        $('.btn-submit-auth').hide();
-                        $('.btn-loading').removeClass('d-none');
+                        $('.btn-submit-auth').addClass('disabled')
+                        $('.btn-submit-auth').html('<i class="fas fa-spinner fa-spin"></i> Loading...')
                     },
                     complete: function() {
-                        $('.btn-submit-auth').show();
-                        $('.btn-loading').addClass('d-none');
+                        $('.btn-submit-auth').removeClass('disabled')
+                        $('.btn-submit-auth').html('Login')
                     },
                     success: function(data) {
                         formData.map(dt => {
-                            $(`#${dt.name}`).removeClass('is-invalid');
+                            $(`#${dt.name}`).removeClass('is-invalid')
                         });
                         if (data.error) {
                             showErrorValidator(data);

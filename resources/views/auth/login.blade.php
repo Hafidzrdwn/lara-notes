@@ -45,10 +45,6 @@
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
                         <button class="w-100 mb-3 btn btn-danger btn-submit-auth" type="submit">Login</button>
-                        <button class="w-100 btn btn-danger btn-loading d-none" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Loading...
-                        </button>
                         <small>Not registered yet? <a href="{{ route('register') }}">Register Now!</a></small>
                     </form>
                 </main>
