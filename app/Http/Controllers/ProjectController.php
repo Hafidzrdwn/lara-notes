@@ -63,6 +63,9 @@ class ProjectController extends Controller
      */
     public function show(Workspace $space, Project $project)
     {
+        if ($project->security == 1 && auth()->user()->id != $space->user_id) {
+            abort(403);
+        }
         return view('projects.show', compact('space', 'project'));
     }
 
