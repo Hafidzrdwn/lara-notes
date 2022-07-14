@@ -43,3 +43,7 @@ textarea {
 .icon-large {
   font-size: 60px !important;
 }
+
+trix-toolbar [data-trix-button-group="file-tools"] {
+  display: none !important;
+}
