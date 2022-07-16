@@ -53,5 +53,9 @@ Route::middleware(['check'])->group(function () {
     Route::delete('{space:slug}/projects/{project:slug}/notes/{note}', 'NoteController@destroy')->name('note.destroy');
   });
 
+  Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+  Route::get('/dashboard/space', 'DashboardController@space')->name('dashboard.space');
+  Route::get('/dashboard/space/{space}', 'DashboardController@show')->name('dashboard.space.show');
+
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
