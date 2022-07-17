@@ -48,7 +48,7 @@
           <td>{{ $i++ }}</td>
           <td>{{ $p->title }}</td>
           <td>{{ $p->category->name }}</td>
-          <td>@if($p->security) private @else public @endif</td>
+          <td class="@if(!$p->security) text-primary @else text-danger @endif">@if($p->security) private @else public @endif</td>
           <td>{{ $p->created_at->diffForHumans() }}</td>
           <td>
             <div class="btn-group">
