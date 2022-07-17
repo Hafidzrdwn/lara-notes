@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ class DashboardController extends Controller
     public function show(Workspace $space)
     {
         $projects = Project::where('workspace_id', $space->id)->with('category')->get();
-        return view('dashboard.show', compact('space', 'projects'));
+        $categories = Category::all();
+
+        return view('dashboard.show', compact('space', 'projects', 'categories'));
     }
 }

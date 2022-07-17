@@ -52,7 +52,8 @@ class ProjectController extends Controller
         $validatedData['security'] = ($request->has('security')) ? 1 : 0;
 
         Project::create($validatedData);
-        return redirect()->route('space', $space->slug)->with('success', '<strong>Congratulations!!</strong> new project is successfully created!!');
+        $route = ($request->page == "dashboard") ? redirect()->route('dashboard.space.show', $space->id) : redirect()->route('space', $space->slug);
+        return $route->with('success', '<strong>Congratulations!!</strong> new project is successfully created!!');
     }
 
     /**
@@ -100,7 +101,10 @@ class ProjectController extends Controller
         $validatedData['security'] = ($request->has('security')) ? 1 : 0;
 
         Project::find($project->id)->update($validatedData);
-        return redirect()->route('space', $space->slug)->with('success', '<strong>Congratulations!!</strong> your project is successfully updated!!');
+
+        $route = ($request->query('page') == "dashboard") ? redirect()->route('dashboard.space.show', $space->id) : redirect()->route('space', $space->slug);
+
+        return $route->with('success', "<strong>Congratulations!!</strong> your project ({$validatedData['title']}) is successfully updated!!");
     }
 
     /**
@@ -111,7 +115,9 @@ class ProjectController extends Controller
      */
     public function destroy(Workspace $space, Project $project)
     {
+        $page = request()->query('page');
         Project::destroy($project->id);
-        return redirect()->route('space', $space->slug)->with('success', '<strong>Wow!</strong> your project has been deleted!!');
+        $route = ($page == "dashboard") ? redirect()->route('dashboard.space.show', $space->id) : redirect()->route('space', $space->slug);
+        return $route->with('success', "<strong>Wow!</strong> your project ({$project->title}) has been deleted!!");
     }
 }
