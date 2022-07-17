@@ -7,7 +7,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-striped" id="myTable">
       <thead>
         <tr>
           <th scope="col">No</th>
@@ -29,9 +29,7 @@
           <td>{{ $s->title }}</td>
           <td class="text-nowrap">{{ $s->desc }}</td>
           <td>
-            <a href="{{ route('dashboard.space.show', $s->id) }}" class="link-dark">
-              {{ $s->projects->count() }}
-            </a>
+            {{ $s->projects->count() }} - <a href="{{ route('dashboard.space.show', $s->id) }}" class=" link-primary"> View projects </a>
           </td>
           <td>public</td>
           <td>{{ $s->created_at->diffForHumans() }}</td>
