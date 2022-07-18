@@ -16,7 +16,7 @@ class WorkspaceController extends Controller
         $workspaces = (!Auth::check()) ? $workspaces->where('is_example', 1) : $workspaces->latest();
 
         return view('spaces.index', [
-            'spaces' => $workspaces->get()
+            'spaces' => $workspaces->paginate(8)
         ]);
     }
 
