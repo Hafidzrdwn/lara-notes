@@ -43,7 +43,7 @@
         @php
         $i = 1;
         @endphp
-        @forelse ($projects as $p)
+        @foreach ($projects as $p)
         <tr>
           <td>{{ $i++ }}</td>
           <td>{{ $p->title }}</td>
@@ -68,11 +68,7 @@
             </div>
           </td>
         </tr>
-        @empty
-        <tr>
-          <td colspan="6" class="text-center">No projects yet.</td>
-        </tr>
-        @endforelse
+        @endforeach
       </tbody>
     </table>
   </div>
