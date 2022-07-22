@@ -31,7 +31,7 @@
 
           </div>
           <div class="col-lg-6 text-end">
-            <button type="submit" class="btn btn-danger"><i class="fas fa-folder-plus me-2"></i>Create</button>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-plus-circle me-2"></i>Create</button>
           </div>
         </div>
       </form>

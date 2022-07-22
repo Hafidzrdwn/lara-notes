@@ -6,6 +6,27 @@
     <h1 class="h2">Your Workspaces</h1>
   </div>
 
+  <div class="row mb-4 align-items-center">
+    <div class="col-lg-6 text-start">
+      @if ($msg = Session::get('success'))
+      <x-alert>
+        @slot('class')
+        alert-success
+        @endslot
+        @slot('msg')
+        {!! $msg !!}
+        @endslot
+      </x-alert>
+      @endif
+    </div>
+    <div class="col-lg-6 text-end">
+      <a href="{{ route('space.create') }}" class="btn btn-danger">
+        <i class="fas fa-plus-circle me-2"></i>Create new workspace
+      </a>
+    </div>
+  </div>
+
+
   <div class="table-responsive">
     <table class="table table-striped" id="myTable">
       <thead>

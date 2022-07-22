@@ -50,7 +50,7 @@ class WorkspaceController extends Controller
 
         Workspace::create($validated);
 
-        return redirect()->route('dashboard')->with('success', '<strong>Congratulations!!</strong> your new workspace is successfully created!!');
+        return redirect()->route('dashboard.space')->with('success', '<strong>Congratulations!!</strong> your new workspace is successfully created!!');
     }
 
     public function edit(Workspace $space)
