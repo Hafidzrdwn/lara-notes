@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
     public function space()
     {
-        $spaces = Workspace::where('user_id', Auth::user()->id)->with('projects')->get();
+        $spaces = Workspace::where('user_id', Auth::user()->id)->with('projects')->latest()->get();
         return view('dashboard.space', compact('spaces'));
     }
 
