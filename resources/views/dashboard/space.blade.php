@@ -56,6 +56,9 @@
           <td>{{ $s->created_at->diffForHumans() }}</td>
           <td>
             <div class="btn-group">
+              <a href="{{ route('space', $s->slug) }}?page=dashboard" class="btn btn-dark me-2 rounded">
+                <span data-feather="eye"></span>
+              </a>
               <a href="{{ route('space.edit', $s->slug) }}?page=dashboard" class="btn btn-primary me-2 rounded">
                 <span data-feather="edit"></span>
               </a>

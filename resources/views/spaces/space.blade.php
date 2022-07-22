@@ -7,7 +7,7 @@
   <p class="text-center">{{ $space->desc }}</p>
   <div class="row mt-5 mb-5 align-items-center justify-content-between">
     <div class="col-lg-6">
-      <a href="{{ route('spaces') }}">
+      <a href="@if(Request::query('page') == 'dashboard') {{ route('dashboard.space') }} @else {{ route('spaces') }} @endif">
         <i class="fas fa-arrow-left fs-5 bg-dark text-light p-3 rounded-circle"></i>
       </a>
     </div>

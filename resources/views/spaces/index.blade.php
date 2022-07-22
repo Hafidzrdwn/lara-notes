@@ -86,7 +86,7 @@
           </p>
         </div>
         <div class="card-footer text-center border-0 position-absolute bottom-0 w-100">
-          <a class="text-danger" href="@if ($s->is_example) {{ route('space.example', $s->slug) }} @else {{ route('space', $s->slug) }} @endif"><i class="fas fa-folder-open"></i> Enter
+          <a class="text-danger" href="@if ($s->is_example) {{ route('space.example', $s->slug) }}?page=spaces @else {{ route('space', $s->slug) }}?page=spaces @endif"><i class="fas fa-folder-open"></i> Enter
             workspace..
           </a>
           <p class="mt-2">Created By :
