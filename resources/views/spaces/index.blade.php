@@ -32,7 +32,21 @@
 @section('content')
 <section class="mt-5">
   <h2 class="text-center">Public Workspaces <i class="fas fa-space-shuttle"></i></h2>
-  <div class="row mt-5">
+  @if ($msg = Session::get('success'))
+  <div class="row justify-content-center align-items-center mt-4">
+    <div class="col-lg-6">
+      <x-alert>
+        @slot('class')
+        alert-success
+        @endslot
+        @slot('msg')
+        {!! $msg !!}
+        @endslot
+      </x-alert>
+    </div>
+  </div>
+  @endif
+  <div class="row @if(Session::has('success')) mt-4 @else mt-5 @endif">
     @foreach ($spaces as $s)
     <div class="col-lg-3">
       <div class="card card-custom border-danger shadow-sm mb-5 position-relative">
@@ -49,7 +63,7 @@
                   Edit</a>
               </li>
               <li>
-                <form action="{{ route('space.destroy', $s->slug) }}" method="post">
+                <form action="{{ route('space.destroy', $s->slug) }}?page=spaces" method="post">
                   @method('delete')
                   @csrf
                   <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure??')">

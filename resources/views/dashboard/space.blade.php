@@ -55,12 +55,18 @@
           <td>public</td>
           <td>{{ $s->created_at->diffForHumans() }}</td>
           <td>
-            <a href="#" class="link-primary me-2 text-decoration-none">
-              <span data-feather="edit"></span>
-            </a>
-            <a href="#" class="link-danger text-decoration-none">
-              <span data-feather="trash-2"></span>
-            </a>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary me-2 rounded">
+                <span data-feather="edit"></span>
+              </button>
+              <form action="{{ route('space.destroy', $s->slug) }}?page=dashboard" method="post">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure??')">
+                  <span data-feather="trash-2"></span>
+                </button>
+              </form>
+            </div>
           </td>
         </tr>
         @endforeach

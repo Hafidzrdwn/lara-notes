@@ -79,7 +79,9 @@ class WorkspaceController extends Controller
 
     public function destroy(Workspace $space)
     {
+        $page = request()->query('page');
         Workspace::destroy($space->id);
-        return redirect()->route('dashboard')->with('success', '<strong>Workspace has been deleted!!</strong>');
+        $route = ($page == "dashboard") ? redirect()->route('dashboard.space') : redirect()->route('spaces');
+        return $route->with('success', "<strong>Workspace ({$space->title})</strong>, has been deleted!!");
     }
 }
