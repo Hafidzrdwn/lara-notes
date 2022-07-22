@@ -56,9 +56,9 @@
           <td>{{ $s->created_at->diffForHumans() }}</td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-primary me-2 rounded">
+              <a href="{{ route('space.edit', $s->slug) }}?page=dashboard" class="btn btn-primary me-2 rounded">
                 <span data-feather="edit"></span>
-              </button>
+              </a>
               <form action="{{ route('space.destroy', $s->slug) }}?page=dashboard" method="post">
                 @method('delete')
                 @csrf

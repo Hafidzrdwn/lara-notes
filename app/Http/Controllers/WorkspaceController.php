@@ -74,7 +74,8 @@ class WorkspaceController extends Controller
         $validated['user_id'] = Auth::user()->id;
 
         Workspace::find($space->id)->update($validated);
-        return redirect()->route('dashboard')->with('success', '<strong>Congratulations!!</strong> your workspace has been edited!!');
+        $route = ($request->page == "dashboard") ? redirect()->route('dashboard.space', $space->id) : redirect()->route('spaces');
+        return $route->with('success', '<strong>Congratulations!!</strong> your workspace has been edited!!');
     }
 
     public function destroy(Workspace $space)

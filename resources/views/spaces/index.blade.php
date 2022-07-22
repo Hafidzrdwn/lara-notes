@@ -59,7 +59,7 @@
             <i class="fas fa-ellipsis-h fs-5" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <a class="dropdown-item" href="{{ route('space.edit', $s->slug) }}"><i class="fas fa-pencil-alt me-1"></i>
+                <a class="dropdown-item" href="{{ route('space.edit', $s->slug) }}?page=spaces"><i class="fas fa-pencil-alt me-1"></i>
                   Edit</a>
               </li>
               <li>

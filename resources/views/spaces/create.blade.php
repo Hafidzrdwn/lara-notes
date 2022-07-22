@@ -28,7 +28,6 @@
         <div class="row">
           <div class="col-lg-6">
             <a href="{{ route('dashboard.space') }}" class="btn btn-dark"><i class="fas fa-angle-double-left me-2"></i>Back</a>
-
           </div>
           <div class="col-lg-6 text-end">
             <button type="submit" class="btn btn-danger"><i class="fas fa-plus-circle me-2"></i>Create</button>
