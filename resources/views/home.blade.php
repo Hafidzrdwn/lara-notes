@@ -4,8 +4,8 @@
 <section class="mt-5 pt-4">
   <div class="row justify-content-around align-items-center">
     <div class="col-lg-5">
-      <h1 class="fw-bold heading-hero text-danger text-decoration-underline">LaraNotes</h1>
-      <p class="text-dark text-opacity-75 my-3">LaraNotes, A Free Online Notes In One Delightful App. Get Started
+      <h1 class="fw-bold heading-hero text-danger">LaraNotes</h1>
+      <p class="text-dark text-opacity-75 mt-2 mb-3" style="font-size: 14px;">LaraNotes, A Free Online Notes In One Delightful App. Get Started
         For
         Free. Plan
         Your Day,

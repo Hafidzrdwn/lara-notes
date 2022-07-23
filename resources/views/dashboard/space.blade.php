@@ -28,7 +28,7 @@
 
 
   <div class="table-responsive">
-    <table class="table table-striped" id="myTable">
+    <table class="table table-striped text-nowrap" id="myTable">
       <thead>
         <tr>
           <th scope="col">No</th>

@@ -34,12 +34,12 @@
               </a>
             </li>
             <li>
-              <hr class="dropdown-divider">
+              <div class="dropdown-divider"></div>
             </li>
             <li>
               <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure to logout??')">
+                <button type="submit" class="dropdown-item dropdown-item-danger text-danger" onclick="return confirm('Are you sure to logout??')">
                   <i class="fas fa-sign-out-alt me-1"></i>
                   Logout
                 </button>

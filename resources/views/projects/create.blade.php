@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="mt-4">
-  <h3 class="text-center mb-4">Create your new project</h3>
+  <h3 class="text-center mb-4">Add new project</h3>
   <div class="row justify-content-center">
     <div class="col-lg-6">
       <form class="border rounded p-4 shadow-sm mb-4" action="{{ route('project.store', $space->slug) }}" method="POST">
@@ -37,7 +37,7 @@
           </div>
           @enderror
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label">Privacy (optional)</label>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" name="security" id="security" @if (old('security')=='on' ) checked @endif>
@@ -48,10 +48,11 @@
         </div>
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <a href="{{ url()->previous() }}" class="text-dark">&laquo; Back</a>
+            <a href="{{ url()->previous() }}" class="btn btn-dark"><i class="fas fa-angle-double-left me-2"></i>Back</a>
           </div>
           <div class="col-lg-6 text-end">
-            <button type="submit" class="btn btn-danger">Submit</button>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-folder-plus me-2"></i>Add</button>
+
           </div>
         </div>
       </form>

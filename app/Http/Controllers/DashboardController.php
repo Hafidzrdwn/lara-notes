@@ -17,9 +17,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $space_count = Workspace::where('user_id', Auth::user()->id)->count();
-
-        return view('dashboard.index', compact('space_count'));
+        return view('dashboard.index');
     }
 
     public function space()

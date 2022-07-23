@@ -32,8 +32,12 @@ textarea {
   border-top-right-radius: 0;
 }
 
-.dropdown-item:active {
+.dropdown-item:hover, .dropdown-item:active {
   background-color: #212529 !important;
+}
+
+.dropdown-item-danger:hover {
+  color: #fff !important;
 }
 
 .heading-hero {

@@ -14,11 +14,11 @@
     <div class="col-lg-6 text-end">
       @if (auth()->user()->username == $space->user->username)
       <a href="{{ route('project.create', $space->slug) }}?page=space" class="btn btn-danger">
-        <i class="fas fa-folder-plus"></i> &nbsp;Add new project
+        <i class="fas fa-folder-plus me-2"></i>Add new project
       </a>
       @else
       <button type="button" id="show-profile" class="btn btn-danger">
-        <i class="fas fa-user-astronaut"></i> &nbsp;Show owner profile
+        <i class="fas fa-user-astronaut me-2"></i>Show owner profile
       </button>
       @endif
     </div>
@@ -32,13 +32,13 @@
       <img class="w-100" src="{{ asset('images/project.svg') }}" alt="">
     </div>
     <div class="col-lg-4">
-      <div class="card shadow border-0 rounded">
+      <div class="card rounded">
         <div class="card-body p-4 text-center">
           <div class="mx-auto border border-dark rounded-circle" style="width: 135px ; height: 135px ; background-image: url({{ asset('images/default.jpg') }}); background-size: cover; background-position: top center;">
           </div>
           <h3 class="card-title mt-3 mb-2 fw-bold">{{ '@' . $space->user->username }}</h3>
           <h6 class="text-dark text-opacity-75">{{ $space->user->name }}</h6>
-          <p class="card-text">Workspaces : <span class="badge @if ($space->user->spaces->count() > 0) {{ 'text-bg-dark' }} @else {{ 'text-bg-danger' }} @endif">
+          <p class="card-text">Workspaces : <span class="badge @if ($space->user->spaces->count() > 0) {{ 'bg-dark' }} @else {{ 'bg-danger' }} @endif">
               {{ $space->user->spaces->count() }}</span></p>
           <a href="#" class="btn btn-danger">Go to profile&nbsp;<i class="fas fa-rocket"></i></a>
         </div>
@@ -76,7 +76,7 @@
           @if (Auth::check() && $space->user->username === auth()->user()->username)
           <div class="col-lg-6">
             <div class="dropdown text-end">
-              <i class="fas fa-ellipsis-h fs-5" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+              <i class="fas fa-ellipsis-v fs-6" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
                   <button type="button" class="dropdown-item btnEdit" data-bs-toggle="modal" data-bs-target="#modalEdit" data-page="space" data-ws="{{ $space->slug }}" data-prj-id="{{ $p->id }}">
@@ -91,7 +91,7 @@
                                                         ]) }}?page=space" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure??')">
+                    <button type="submit" class="dropdown-item dropdown-item-danger text-danger" onclick="return confirm('Are you sure??')">
                       <i class="fas fa-trash-alt me-1"></i>
                       Delete
                     </button>
@@ -148,7 +148,7 @@
         This workspace doesn't contain any projects, the owner doesn't add any projects at all.
         @else
         Don't let your workspace go unnoticed, let's try to add a new project by
-        pressing the red <a href="">add
+        pressing the red <a href="{{ route('project.create', $space->slug) }}?page=space">add
           new project</a> button above 👆
         @endif
       </p>

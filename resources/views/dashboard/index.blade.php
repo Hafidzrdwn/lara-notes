@@ -16,7 +16,7 @@
       <div class="card border-0 bg-dark" style="height: 135px">
         <div class="card-body row justify-content-center align-items-center">
           <div class="col-lg-6">
-            <h1 class="card-text text-start text-white fw-bold">{{ $space_count }}</h1>
+            <h1 class="card-text text-start text-white fw-bold">{{ auth()->user()->spaces->count() }}</h1>
             <h6 class="card-title text-white text-opacity-75">Total Workspaces</h6>
           </div>
           <div class="col-lg-5">
