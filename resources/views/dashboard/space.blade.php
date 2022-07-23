@@ -48,7 +48,7 @@
         <tr>
           <td>{{ $i++ }}</td>
           <td>{{ $s->title }}</td>
-          <td class="text-nowrap">{{ $s->desc }}</td>
+          <td class="text-wrap">{{ $s->desc }}</td>
           <td>
             {{ $s->projects->count() }} - <a href="{{ route('dashboard.space.show', $s->id) }}" class=" link-primary"> View projects </a>
           </td>
