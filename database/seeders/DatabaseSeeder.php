@@ -49,17 +49,14 @@ class DatabaseSeeder extends Seeder
         //     ],
         // );
 
-        // $categories = array(
-        //     [
-        //         'name' => 'Basic Note',
-        //     ],
-        //     [
-        //         'name' => 'Basic List Note',
-        //     ],
-        //     [
-        //         'name' => 'TodoList',
-        //     ]
-        // );
+        $categories = array(
+            [
+                'name' => 'Plain Notes',
+            ],
+            [
+                'name' => 'TodoList',
+            ],
+        );
 
         $projects = array(
             [
@@ -114,6 +111,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now()
         ];
 
-        // DB::table('notes')->insert($notes);
+        // DB::table('categories')->insert($categories);
     }
 }

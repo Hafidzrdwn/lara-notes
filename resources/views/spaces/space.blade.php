@@ -71,7 +71,7 @@
       <div class="card card-custom shadow-sm mb-4" style="max-height: 265px;">
         <div class="card-header row justify-content-between align-items-center">
           <div class="col-lg-6">
-            <i class="fas fa-calendar-alt"></i> &nbsp;{{ $p->created_at->diffForHumans() }}
+            <i class="fas fa-calendar-alt me-2"></i>{{ $p->created_at->diffForHumans() }}
           </div>
           @if (Auth::check() && $space->user->username === auth()->user()->username)
           <div class="col-lg-6">

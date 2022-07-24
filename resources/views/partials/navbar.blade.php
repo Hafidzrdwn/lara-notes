@@ -20,11 +20,11 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ Auth::user()->name }}
-            <img class="ms-1 rounded-circle" width="25" src="{{ asset('images/default.jpg') }}" alt="">
+            <img class="ms-1 rounded-circle" id="profile-nav" width="30" src="@if(auth()->user()->profile_image) {{ asset('storage/' . auth()->user()->profile_image) }} @else {{ asset('images/default.jpg') }}@endif" alt="">
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="">
+              <a class="dropdown-item" href="{{ route('user.profile') }}">
                 <i class="fas fa-user me-1"></i> My Profile
               </a>
             </li>

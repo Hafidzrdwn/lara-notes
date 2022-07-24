@@ -57,5 +57,10 @@ Route::middleware(['check'])->group(function () {
   Route::get('/dashboard/space', 'DashboardController@space')->name('dashboard.space');
   Route::get('/dashboard/space/{space}', 'DashboardController@show')->name('dashboard.space.show');
 
+  Route::get('/user/profile', 'UserController@index')->name('user.profile');
+  Route::put('/user/profile', 'UserController@update')->name('user.update');
+  Route::put('/user/profile/image', 'UserController@profile_update')->name('user.profile.update');
+  Route::delete('/user/profile/image', 'UserController@delete_profile')->name('user.profile.destroy');
+
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
