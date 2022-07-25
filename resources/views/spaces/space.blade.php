@@ -34,7 +34,7 @@
     <div class="col-lg-4">
       <div class="card rounded">
         <div class="card-body p-4 text-center">
-          <div class="mx-auto border border-dark rounded-circle" style="width: 135px ; height: 135px ; background-image: url({{ asset('images/default.jpg') }}); background-size: cover; background-position: top center;">
+          <div class="mx-auto border border-dark rounded-circle" style="width: 135px ; height: 135px ; background-image: url(@if($space->user->profile_image) {{ asset('storage/' . $space->user->profile_image) }} @else {{ asset('images/default.jpg') }} @endif); background-size: cover; background-position: top center;">
           </div>
           <h3 class="card-title mt-3 mb-2 fw-bold">{{ '@' . $space->user->username }}</h3>
           <h6 class="text-dark text-opacity-75">{{ $space->user->name }}</h6>
@@ -156,8 +156,6 @@
     @endforelse
   </div>
 </section>
-@else
-@include('spaces.example')
 @endauth
 
 

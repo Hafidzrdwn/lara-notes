@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 Route::get('/spaces', 'WorkspaceController@index')->name('spaces');
-Route::get('/spaces/example/{space:slug}', 'WorkspaceController@show')->name('space.example');
 
 Route::middleware(['guest'])->group(function () {
   Route::controller(AuthController::class)->group(function () {

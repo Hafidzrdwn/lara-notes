@@ -12,20 +12,16 @@ class WorkspaceController extends Controller
 {
     public function index()
     {
-        $workspaces = Workspace::with('user');
-        $workspaces = (!Auth::check()) ? $workspaces->where('is_example', 1) : $workspaces->latest();
+        $workspaces = Workspace::with('user')->latest();
+        $workspaces = (!Auth::check()) ? $workspaces->limit(3)->get() : $workspaces->paginate(9);
 
         return view('spaces.index', [
-            'spaces' => $workspaces->paginate(9)
+            'spaces' => $workspaces
         ]);
     }
 
     public function show(Workspace $space)
     {
-        if (!Auth::check() && !$space->is_example) {
-            return redirect()->route('spaces');
-        }
-
         return view('spaces.space', [
             'space' => $space->load('user', 'projects'),
             'categories' => Category::all()
