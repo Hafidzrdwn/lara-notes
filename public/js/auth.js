@@ -5,7 +5,7 @@ $(document).ready(function () {
                 }
             });
 
-  function showErrorValidator(msg) {
+            function showErrorValidator(msg) {
                 $('#alert-zone').html(
                     `
                     <div class="alert alert-danger alert-dismissible fade show alert-error d-none" role="alert">
@@ -16,15 +16,17 @@ $(document).ready(function () {
                 );
                 $('.alert-error').removeClass('d-none');
                 $('.alert-error ul').html('');
-
-                if(msg.type == "list") {
+                if (msg.type == "list") { 
                     $.each(msg.error, function(key, value) {
-                        $(`#${key}`).addClass('is-invalid');
+                        $(`#${key}`).addClass('border border-danger');
                         $('.alert-error ul').append(`<li>${value}</li>`);
+                        $('#password').val('');
                     });
                 } else {
+                    $('#email, #password').val('');
                     $('.alert-error ul').replaceWith(msg.error);
                 }
+
 
             }
 
@@ -40,12 +42,16 @@ $(document).ready(function () {
                         $('.btn-submit-auth').addClass('disabled')
                         $('.btn-submit-auth').html('<i class="fas fa-spinner fa-spin"></i> Loading...')
                     },
-                    success: function(data) {
+                    success: function (data) {
                         formData.map(dt => {
-                            $(`#${dt.name}`).removeClass('is-invalid')
+                            $(`#${dt.name}`).removeClass('border border-danger');
                         });
                         $('.btn-submit-auth').removeClass('disabled')
-                        $('.btn-submit-auth').html('Login')
+                        if ($('.btn-submit-auth').hasClass('login')) {
+                            $('.btn-submit-auth').html('Login');
+                        } else {
+                            $('.btn-submit-auth').html('Register');
+                        }
                         if (data.error) {
                             showErrorValidator(data);
                         }else {
@@ -57,4 +63,9 @@ $(document).ready(function () {
                     }
                 });
             });
-        });
+    
+    $('.icon-eye').click(function (e) { 
+        $(this).toggleClass('fa-eye fa-eye-slash');
+        $('#password').attr('type', ($(this).hasClass('fa-eye')) ? 'password' : 'text');
+    })
+});

@@ -70,11 +70,11 @@
     <div class="col-lg-4">
       <div class="card card-custom shadow-sm mb-4" style="max-height: 265px;">
         <div class="card-header row justify-content-between align-items-center">
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <i class="fas fa-calendar-alt me-2"></i>{{ $p->created_at->diffForHumans() }}
           </div>
           @if (Auth::check() && $space->user->username === auth()->user()->username)
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="dropdown text-end">
               <i class="fas fa-ellipsis-v fs-6" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
