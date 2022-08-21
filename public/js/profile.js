@@ -58,6 +58,9 @@ $(document).ready(function() {
               $('#save').removeClass('disabled');
               modal.modal('hide');
               location.reload();
+            },
+            error: function (err) {
+              console.log(err)
             }
           });
         };

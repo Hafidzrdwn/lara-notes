@@ -130,7 +130,9 @@
             @endslot
           </x-alert>
           @endif
-          <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('user.update', [
+            'user' => $user->username
+          ]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="row g-3 mb-3">

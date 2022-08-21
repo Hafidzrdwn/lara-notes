@@ -26,27 +26,34 @@
     border-color: #212529;
   }
 
+  .fa-search {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 25px;
+    font-size: 18px;
+  }
+
+  #search {
+    padding-left: 45px;
+  }
+
+  .username-link:hover {
+    text-decoration: underline !important;
+  }
+
 </style>
 @endsection
 
 @section('content')
 <section class="mt-5">
   <h2 class="text-center">Public Workspaces <i class="fas fa-space-shuttle"></i></h2>
-  @if ($msg = Session::get('success'))
-  <div class="row justify-content-center align-items-center mt-4">
-    <div class="col-lg-6">
-      <x-alert>
-        @slot('class')
-        alert-success
-        @endslot
-        @slot('msg')
-        {!! $msg !!}
-        @endslot
-      </x-alert>
+  <div class="row mt-5">
+    <div class="col-md-6 position-relative">
+      <input type="text" class="form-control" id="search" placeholder="Search everything..">
+      <i class="fas fa-search position-absolute"></i>
     </div>
   </div>
-  @endif
-  <div class="row justify-content-center align-items-center @if(Session::has('success')) mt-4 @else mt-5 @endif">
+  <div class="row justify-content-center align-items-center mt-4">
     @foreach ($spaces as $s)
     @php
     $isOwner = Auth::check() && $s->user->username === auth()->user()->username;
@@ -56,7 +63,11 @@
         <div class="card-header d-flex align-items-center justify-content-between">
           <div>
             <img class="rounded-circle me-1" width="35" src="@if($s->user->profile_image) {{ asset('storage/' . $s->user->profile_image) }} @else {{ asset('images/default.jpg') }} @endif" alt="user profile">
-            <a class="text-decoration-none text-dark" href="">{{ $s->user->username }}</a>
+            <a class="text-decoration-none text-dark username-link" href="{{ route('user.profile', [
+              'user' => $s->user->username
+            ]) }}">
+              {{ $s->user->username }}
+            </a>
           </div>
           @if ($isOwner)
           <div class="dropdown text-end">
@@ -116,6 +127,17 @@
   @endslot
   @slot('msg')
   Hi {{ auth()->user()->username }}, welcome back!
+  @endslot
+</x-toast>
+@elseif($msg = Session::get('success'))
+<x-toast>
+  @slot('icon')
+  success
+  @endslot
+  @slot('title')
+  {!! $msg !!}
+  @endslot
+  @slot('msg')
   @endslot
 </x-toast>
 @elseif ($msg = Session::get('loggedout'))

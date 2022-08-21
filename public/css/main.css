@@ -53,3 +53,7 @@ textarea {
 trix-toolbar [data-trix-button-group="file-tools"] {
     display: none !important;
 }
+
+.swal2-container {
+    width: 450px !important;
+}

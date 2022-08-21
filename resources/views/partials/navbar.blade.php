@@ -24,7 +24,9 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="{{ route('user.profile') }}">
+              <a class="dropdown-item" href="{{ route('user.profile', [
+                'user' => auth()->user()->username
+              ]) }}">
                 <i class="fas fa-user me-1"></i> My Profile
               </a>
             </li>

@@ -13,7 +13,7 @@
 
   Toast.fire({
     icon: '{{ $icon }}'
-    , title: '{{ $title }}'
+    , title: '{!! $title !!}'
     , text: '{{ $msg }}'
   })
 
