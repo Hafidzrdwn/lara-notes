@@ -102,4 +102,34 @@
   {{ $spaces->links() }}
   @endif
 </section>
+
+@endsection
+
+@section('script')
+@if ($msg = Session::get('loggedin'))
+<x-toast>
+  @slot('icon')
+  success
+  @endslot
+  @slot('title')
+  {{ $msg }}
+  @endslot
+  @slot('msg')
+  Hi {{ auth()->user()->username }}, welcome back!
+  @endslot
+</x-toast>
+@elseif ($msg = Session::get('loggedout'))
+<x-toast>
+  @slot('icon')
+  success
+  @endslot
+  @slot('title')
+  {{ $msg }}
+  @endslot
+  @slot('msg')
+  You have been logged out.
+  @endslot
+</x-toast>
+@endif
+
 @endsection

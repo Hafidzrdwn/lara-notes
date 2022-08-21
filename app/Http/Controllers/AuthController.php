@@ -80,6 +80,8 @@ class AuthController extends Controller
             Auth::login($user, $remember);
             Auth::logoutOtherDevices($request->password);
 
+            Session::flash('loggedin', 'Login successfully!');
+
             return response()->json([
                 'success' => true,
                 'redirect' => route('spaces')
@@ -99,6 +101,8 @@ class AuthController extends Controller
         request()->session()->invalidate();
 
         request()->session()->regenerateToken();
+
+        Session::flash('loggedout', 'See you soon!');
 
         return redirect('/spaces');
     }
