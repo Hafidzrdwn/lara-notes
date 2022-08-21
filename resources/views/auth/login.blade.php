@@ -49,7 +49,7 @@
           <div class="form-floating position-relative">
             <input type="password" name="password" class="form-control" id="password" placeholder="Password" autocomplete="new-password">
             <label for="password">Password</label>
-            <i class="icon-eye fas fa-eye position-absolute"></i>
+            <i class="icon-eye fas fa-eye position-absolute" data-tag="password"></i>
           </div>
           <div class="mb-3 form-check text-start">
             <input type="checkbox" class="form-check-input" name="remember" id="remember" autocomplete="off">

@@ -20,14 +20,14 @@ $(document).ready(function () {
                     $.each(msg.error, function(key, value) {
                         $(`#${key}`).addClass('border border-danger');
                         $('.alert-error ul').append(`<li>${value}</li>`);
-                        $('#password').val('');
                     });
                 } else {
-                    $('#email, #password').val('');
                     $('.alert-error ul').replaceWith(msg.error);
                 }
 
-
+                $.each(msg.error, function(key, value) {
+                    $(`#${key}`).val('');
+                });
             }
 
             $('.btn-submit-auth').click(function(e) {
@@ -66,6 +66,6 @@ $(document).ready(function () {
     
     $('.icon-eye').click(function (e) { 
         $(this).toggleClass('fa-eye fa-eye-slash');
-        $('#password').attr('type', ($(this).hasClass('fa-eye')) ? 'password' : 'text');
+        $(`#${$(this).data('tag')}`).attr('type', ($(this).hasClass('fa-eye')) ? 'password' : 'text');
     })
 });
